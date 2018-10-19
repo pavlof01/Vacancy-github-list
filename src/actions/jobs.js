@@ -3,9 +3,11 @@ export const FETCH_JOBS_STARTED = 'FETCH_JOBS_STARTED';
 export const FETCH_JOBS_SUCCESS = 'FETCH_JOBS_SUCCESS';
 export const FETCH_JOBS_FAILURE = 'FETCH_JOBS_FAILURE';
 
-export function fetchJobs(){
+export function fetchJobs(description, location){
     return {
-        type:FETCH_JOBS_STARTED,        
+        type:FETCH_JOBS_STARTED,
+        description,
+        location        
     }
 };
 

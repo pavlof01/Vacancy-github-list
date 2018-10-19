@@ -5,7 +5,7 @@ import Api from '../api';
 
 function* fetchGithubJobsFlow(action) {
   try {
-    const responseData = yield call(Api.getListOfGithubJobs);
+    const responseData = yield call(Api.getListOfGithubJobs, action.description, action.location);
     console.warn(JSON.stringify(responseData.data, null, 2))    
   } catch (err) {
     console.warn(err);

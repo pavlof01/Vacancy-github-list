@@ -5,7 +5,7 @@ import { fetchJobs } from '../actions/jobs';
 
 class Main extends Component {
   componentDidMount() {    
-    this.props.fetchJobs();
+    this.props.fetchJobs('javascript', 'boston');
   }
 
   render() {
@@ -18,7 +18,7 @@ class Main extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchJobs: () => dispatch(fetchJobs()),
+  fetchJobs: (description, location) => dispatch(fetchJobs(description, location)),
 });
 
 const mapStateToProps = state => ({});
