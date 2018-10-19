@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
-import { Text, View } from 'react-native';
-import Api from './api';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
+import AppNavigation from './AppNavigation';
 
 export default class App extends Component {
-
-  componentDidMount(){
-    Api.getListOfGithubJobs('javascript', 'Washington');
-  }
-  
   render() {
     return (
-      <View>
-        <Text>еуые</Text>        
-      </View>
+      <Provider store={store}>
+        <AppNavigation />
+      </Provider>
     );
   }
 }

@@ -43,7 +43,7 @@ class Api {
         description,
         location
       }
-    }).then((data) => console.warn(JSON.stringify(data.data, null, 2)));
+    });
   }
 }
 
