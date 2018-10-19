@@ -9,6 +9,7 @@ class Main extends Component {
   }
 
   render() {
+    console.warn(this.props.jobs);
     return (
       <View>
         <Text>еуые</Text>
@@ -21,7 +22,9 @@ const mapDispatchToProps = dispatch => ({
   fetchJobs: (description, location) => dispatch(fetchJobs(description, location)),
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  jobs:state.jobs.get('items')
+});
 
 export default connect(
   mapStateToProps,
