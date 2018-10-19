@@ -1,0 +1,3 @@
+rootProject.name = 'vacancy_list'
+
+include ':app'
