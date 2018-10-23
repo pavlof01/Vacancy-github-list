@@ -21,28 +21,27 @@ const styles = StyleSheet.create({
   },
 });
 
-class Job extends Component {
+class Post extends Component {
   constructor() {
     super();
     this.state = {};
-  }  
+  } 
 
   render() {
-    const { params } = this.props.navigation.state;
+    const { params } = this.props.navigation.state;    
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <ScrollView>
-          <Image
+        <ScrollView>          
+        <Image
             resizeMode="contain"
             style={styles.logo}
-            source={{ uri: params.job.company_logo }}
+            source={{ uri: params.post.owner.profile_image }}
           />
-          <Text style={styles.title}>{params.job.title}</Text>
-          <Text style={styles.companyName}>Company: {params.job.company}</Text>
-          <Text style={styles.baseText}>Location: {params.job.location}</Text>
-          <Text style={styles.baseText}>Type: {params.job.type}</Text>
+          <Text style={styles.title}>{params.post.title}</Text>
+          <Text style={styles.companyName}>Name: {params.post.owner.display_name}</Text>
+          <Text style={styles.baseText}>reputation: {params.post.owner.reputation}</Text>          
           <View>
-            <Text>{params.job.description}</Text>
+            <Text>{params.post.body}</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -50,4 +49,4 @@ class Job extends Component {
   }
 }
 
-export default Job;
+export default Post;

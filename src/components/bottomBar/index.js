@@ -3,7 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   bottomBarLabel: {
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center',
   },  
 });

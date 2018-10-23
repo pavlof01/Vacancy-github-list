@@ -1,16 +1,18 @@
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { createBottomBarOptions } from './components/bottomBar';
-import Jobs from './screens/jobsScreen';
-import Job from './screens/jobDetail';
+import Jobs from './screens/jobs';
+import Job from './screens/job';
+import StackOverflow from './screens/stackOverflow';
+import Post from './screens/post';
 
 const Main = createBottomTabNavigator({
   Jobs: {
     screen: Jobs,
     navigationOptions: createBottomBarOptions('Jobs'),
   },
-  Wallet: {
-    screen: Jobs,
-    navigationOptions: createBottomBarOptions('Jobs'),
+  StackOverflow: {
+    screen: StackOverflow,
+    navigationOptions: createBottomBarOptions('StackOverflow'),
   },
   Profile: {
     screen: Jobs,
@@ -26,6 +28,9 @@ const AppNavigator = createStackNavigator(
     },
     Job: {
       screen: Job,      
+    },
+    Post: {
+      screen: Post,      
     }
   },
   {
