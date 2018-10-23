@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Main extends Component {
+class Jobs extends Component {
   constructor() {
     super();
     this.state = {
@@ -137,4 +137,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Main);
+)(Jobs);
