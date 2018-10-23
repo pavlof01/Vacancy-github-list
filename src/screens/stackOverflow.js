@@ -5,9 +5,10 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
-  RefreshControl,  
+  RefreshControl,
   TouchableOpacity,
-  Image
+  Image,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/sfPosts';
@@ -31,27 +32,27 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   userContainer: {
     alignItems: 'center',
-    flex:1
+    flex: 1,
   },
   body: {
-    flex:3
-  },  
+    flex: 3,
+  },
   title: {
     fontSize: 17,
     fontWeight: '600',
   },
   avatar: {
-    width:50,
-    height:50,
-    resizeMode: 'contain'
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
   },
   companyName: {
-    fontSize: 15,    
-    textAlign:'center'
+    fontSize: 15,
+    textAlign: 'center',
   },
   btn: {
     alignItems: 'center',
@@ -69,31 +70,41 @@ const styles = StyleSheet.create({
 class Posts extends Component {
   constructor() {
     super();
-    this.state = {      
-    };
+    this.state = {};
   }
   componentDidMount() {
     this.props.fetchPosts();
-  } 
+  }
 
-  onRefresh = () => {    
+  onRefresh = () => {
     const { fetchPosts } = this.props;
     fetchPosts();
-  };  
+  };
+
+  routeToPost = post => {
+    Alert.alert(
+      'Перейти к посту?',
+      '',
+      [        
+        {text: 'Отмена', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => this.props.navigation.navigate('Post', { post })},
+      ],
+      { cancelable: false }
+    )    
+  };
 
   renderItem = post => {
-    const { item } = post;
-    console.warn(JSON.stringify(item, null, 2));
+    const { item } = post;    
     return (
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Job', { post: item })}>
-        <View style={styles.renderItemContainer}>          
-          <View style={styles.userContainer}>            
-            <Image style={styles.avatar} source={{uri:item.owner.profile_image}} />
+      <TouchableOpacity onPress={() => this.routeToPost(item)}>
+        <View style={styles.renderItemContainer}>
+          <View style={styles.userContainer}>
+            <Image style={styles.avatar} source={{ uri: item.owner.profile_image }} />
             <Text style={styles.companyName}>{item.owner.display_name}</Text>
           </View>
           <View style={styles.body}>
-            <Text style={styles.title}>{item.title}</Text>   
-          </View>                 
+            <Text style={styles.title}>{item.title}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -102,9 +113,9 @@ class Posts extends Component {
   keyExtractor = post => post.owner.user_id;
 
   render() {
-    const { refresh, postList } = this.props;    
+    const { refresh, postList } = this.props;
     return (
-      <SafeAreaView style={styles.safeAreaView}>        
+      <SafeAreaView style={styles.safeAreaView}>
         <FlatList
           extraData={[this.props]}
           contentContainerStyle={styles.listContainer}
@@ -122,7 +133,7 @@ const mapDispatchToProps = dispatch => ({
   fetchPosts: () => dispatch(fetchPosts()),
 });
 
-const mapStateToProps = state => ({  
+const mapStateToProps = state => ({
   postList: state.posts.get('items').toJS(),
   refresh: state.posts.get('isFetching'),
 });

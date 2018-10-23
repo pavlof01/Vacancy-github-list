@@ -21,24 +21,32 @@ const styles = StyleSheet.create({
   },
 });
 
-class Job extends Component {
+class Post extends Component {
   constructor() {
     super();
     this.state = {};
-  }
-
-  keyExtractor = job => job.id;
+  } 
 
   render() {
-    const { params } = this.props.navigation.state;
+    const { params } = this.props.navigation.state;    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <ScrollView>          
-          <Text>POST</Text>
+        <Image
+            resizeMode="contain"
+            style={styles.logo}
+            source={{ uri: params.post.owner.profile_image }}
+          />
+          <Text style={styles.title}>{params.post.title}</Text>
+          <Text style={styles.companyName}>Name: {params.post.owner.display_name}</Text>
+          <Text style={styles.baseText}>reputation: {params.post.owner.reputation}</Text>          
+          <View>
+            <Text>{params.post.body}</Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
 
-export default Job;
+export default Post;
