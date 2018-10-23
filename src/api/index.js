@@ -79,7 +79,7 @@ class Api {
   }
 
   static getUsersReps() {
-    return Api.getOfGitHubApi('users');
+    return Api.getOfGitHubApi('repositories');
   }
 }
 

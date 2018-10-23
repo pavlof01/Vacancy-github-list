@@ -4,6 +4,8 @@ import Jobs from './screens/jobs';
 import Job from './screens/jobDetail';
 import StackOverflow from './screens/stackOverflow';
 import Post from './screens/post';
+import GitHubReps from './screens/ghReps';
+import Rep from './screens/rep';
 
 const Main = createBottomTabNavigator({
   Jobs: {
@@ -14,9 +16,9 @@ const Main = createBottomTabNavigator({
     screen: StackOverflow,
     navigationOptions: createBottomBarOptions('StackOverflow'),
   },
-  Profile: {
-    screen: Jobs,
-    navigationOptions: createBottomBarOptions('Jobs'),
+  GitHubRepositories: {
+    screen: GitHubReps,
+    navigationOptions: createBottomBarOptions('GHreps'),
   },  
 });
 
@@ -31,6 +33,9 @@ const AppNavigator = createStackNavigator(
     },
     Post: {
       screen: Post,      
+    },
+    Rep: {
+      screen: Rep,      
     }
   },
   {
