@@ -25,9 +25,7 @@ class Job extends Component {
   constructor() {
     super();
     this.state = {};
-  }
-
-  keyExtractor = job => job.id;
+  }  
 
   render() {
     const { params } = this.props.navigation.state;
