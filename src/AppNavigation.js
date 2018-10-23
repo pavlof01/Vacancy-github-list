@@ -1,7 +1,7 @@
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { createBottomBarOptions } from './components/bottomBar';
 import Jobs from './screens/jobs';
-import Job from './screens/job';
+import Job from './screens/jobDetail';
 import StackOverflow from './screens/stackOverflow';
 import Post from './screens/post';
 
