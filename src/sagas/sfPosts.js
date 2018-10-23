@@ -5,7 +5,7 @@ import Api from '../api';
 function* fetchStackOveflowPostsFlow() {
   try {      
     const response = yield call(Api.getStackOveflowPosts);       
-    yield put(postsActions.fetchPostsSuccess(response.data));   
+    yield put(postsActions.fetchPostsSuccess(response.data.items));   
   } catch (err) {
     yield put(postsActions.fetchPostsFail(err));
   }

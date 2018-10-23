@@ -75,7 +75,7 @@ class Api {
   }
 
   static getStackOveflowPosts() {
-    return Api.getOfStackOveflowPosts('posts?order=desc&sort=activity&site=stackoverflow');
+    return Api.getOfStackOveflowPosts('posts?order=desc&sort=activity&site=stackoverflow&filter=!-*jbN*x3aMd9');
   }
 
   static getUsersReps() {

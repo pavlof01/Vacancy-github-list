@@ -5,9 +5,9 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
-  RefreshControl,
-  TextInput,
+  RefreshControl,  
   TouchableOpacity,
+  Image
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/sfPosts';
@@ -31,14 +31,27 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
+    flexDirection:'row'
   },
+  userContainer: {
+    alignItems: 'center',
+    flex:1
+  },
+  body: {
+    flex:3
+  },  
   title: {
     fontSize: 17,
-    fontWeight: '900',
+    fontWeight: '600',
+  },
+  avatar: {
+    width:50,
+    height:50,
+    resizeMode: 'contain'
   },
   companyName: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: 15,    
+    textAlign:'center'
   },
   btn: {
     alignItems: 'center',
@@ -53,60 +66,49 @@ const styles = StyleSheet.create({
   },
 });
 
-class Jobs extends Component {
+class Posts extends Component {
   constructor() {
     super();
-    this.state = {
-      description: '',
-      location: '',
+    this.state = {      
     };
   }
   componentDidMount() {
     this.props.fetchPosts();
-  }
+  } 
 
-  search = () => {
-    const { description, location } = this.state;
-    const { fetchJobs } = this.props;
-    fetchJobs(description, location);
-  };
+  onRefresh = () => {    
+    const { fetchPosts } = this.props;
+    fetchPosts();
+  };  
 
-  onRefresh = () => {
-    const { description, location } = this.state;
-    const { fetchJobs } = this.props;
-    fetchJobs(description, location);
-  };
-
-  renderItem = job => {
-    const { item } = job;
+  renderItem = post => {
+    const { item } = post;
+    console.warn(JSON.stringify(item, null, 2));
     return (
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Job', { job: item })}>
-        <View style={styles.renderItemContainer}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.companyName}>Company: {item.company}</Text>
-          <Text style={styles.baseText}>Location: {item.location}</Text>
-          <Text style={styles.baseText}>Type: {item.type}</Text>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Job', { post: item })}>
+        <View style={styles.renderItemContainer}>          
+          <View style={styles.userContainer}>            
+            <Image style={styles.avatar} source={{uri:item.owner.profile_image}} />
+            <Text style={styles.companyName}>{item.owner.display_name}</Text>
+          </View>
+          <View style={styles.body}>
+            <Text style={styles.title}>{item.title}</Text>   
+          </View>                 
         </View>
       </TouchableOpacity>
     );
   };
 
-  keyExtractor = job => job.id;
+  keyExtractor = post => post.owner.user_id;
 
   render() {
-    const { jobList, refresh } = this.props;
+    const { refresh, postList } = this.props;    
     return (
-      <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.form}>
-          <Text>STACKOVEFLOW</Text>
-          <TouchableOpacity onPress={this.search} style={styles.btn}>
-            <Text style={styles.btnText}>Search</Text>
-          </TouchableOpacity>
-        </View>
+      <SafeAreaView style={styles.safeAreaView}>        
         <FlatList
           extraData={[this.props]}
           contentContainerStyle={styles.listContainer}
-          data={jobList}
+          data={postList}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
           refreshControl={<RefreshControl refreshing={refresh} onRefresh={this.onRefresh} />}
@@ -120,12 +122,12 @@ const mapDispatchToProps = dispatch => ({
   fetchPosts: () => dispatch(fetchPosts()),
 });
 
-const mapStateToProps = state => ({
-  jobList: state.jobs.get('items').toJS(),
-  refresh: state.jobs.get('isFetching'),
+const mapStateToProps = state => ({  
+  postList: state.posts.get('items').toJS(),
+  refresh: state.posts.get('isFetching'),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Jobs);
+)(Posts);
